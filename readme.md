@@ -18,4 +18,5 @@ The repo is structured in this manner:
 - I used chat gpt to help explain and give me baseline examples to work around or think about.
 - I used w3 schools for various bits of info that I forgot about or needed a refresher on
 - I utilized looking at notes that i've taken during class
-- I had a tutor session!
+- I will utilize askbcs more!
+- I had a tutor session with Jose Lopez!

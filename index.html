@@ -4,19 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=+, initial-scale=1.0">
     <title>Take a Quiz!</title>
-    <script src="assets/script.js"></script>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+    <!--Creating the top of the page-->
     <header>
        <h1>Welcome to Quiz Time!</h1>
        <nav>
         <ul>
-            <li>Leaderboard</li>
+            <li onclick="openLeaderboard()">Leaderboard</li>
             <li>Coming Soon!</li>
         </ul>
        </nav> 
     </header>
 
+    <!--Container for instructions and Start button-->
+    <div id="PreStartArea">
+        <h3>
+            Rules:
+        </h3>
+        <ul>
+            <li>
+                Answer all the questions in 100 seconds!
+            </li>
+            <li>
+                If you answer wrong, you will lose 10 seconds!
+            </li>
+            <li>
+                Have Fun!
+            </li>
+        </ul>
+        <!--The button to start the quiz-->
+        <button id="StartButton" onclick="openQuiz()">
+            Start Quiz!
+        </button>
+    </div>
+
+<!--Creating the quiz area in the middle of the page-->
+    <section id="QuizArea" style="display:">
+        <!--Top left current score display-->
+        <div id="currentScoreArea">
+            <h3>
+                Current Score:
+            </h3>
+            <div id="currentScore">
+                #
+            </div>
+        </div>
+
+        <!--Time Left Display-->
+        <div id="TimeLeftArea">
+            <h3>
+                Time Left:
+            </h3>
+            <div id="timeLeft">
+                #
+            </div>
+        </div>
+
+        <!--Question Counter Display-->
+        <div id="questionsCountArea">
+            <h3>
+                Questions Left:
+            </h3>
+            <div id="questionCount">
+                #
+            </div>
+        </div>
+
+         <!--Questions and Answers Display-->
+        <div id="QuestionAnswerArea">
+            <h3 id="theQuestion">
+                Question Here
+            </h3>
+            <div id="answerArea">
+                <ui>
+                    <li id="answer1"> Answer 1</li>
+                    <li id="answer2"> Answer 2</li>
+                    <li id="answer3"> Answer 3</li>
+                    <li id="answer4"> Answer 4</li>
+                </ui>
+            </div>
+        </div>
+
+   <!--The button to submit your answer-->
+        <button id="SubButton" onclick="runAnswerCheck()">
+            Submit Answer!
+        </button>
+
+            <!--Quiz notification Area-->
+        <div id="quizNotification">
+            <h3>
+                Good Luck!
+            </h3>
+        </div>
+
+     
+    </section>
+
+    <!--This is where the leaderboard is-->
+    <section id="LeaderboardArea" class="hide">
+        <div>
+            <h2>
+                Leaderboards
+            </h2>
+            <div>
+                <ul>
+                    <li id="firstPlace">
+                        1st Place:
+                    </li>
+                    <li id="secondPlace">
+                        2nd Place:
+                    </li>
+                    <li id="thirdPlace">
+                        3rd Place:
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <button id="BackButton" onclick="openMain()">
+            Back to Start Page
+        </button>
+    </section>
+ 
+    <!--loading the javascript-->
+    <script src="assets/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,30 @@
+header {
+    background-color: #204e4e;
+    color: rgb(18, 245, 245);
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+h1 {
+    color:aquamarine;
+    font-weight: bold;
+    font-style:italic;
+}
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 35px;
+    font-size: large;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .hide{
+    display: none;
+  }
