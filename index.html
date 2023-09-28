@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=+, initial-scale=1.0">
-    <title>Take a Quiz!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Time</title>
     <link rel="stylesheet" href="assets/style.css">
+    <link rel="icon" href="https://img.freepik.com/premium-vector/quiz-comic-pop-art-style_175838-505.jpg" type="image/x-icon">
 </head>
 <body>
     <!--Creating the top of the page-->
@@ -34,14 +35,16 @@
                 Have Fun!
             </li>
         </ul>
-        <!--The button to start the quiz-->
-        <button id="StartButton" onclick="openQuiz()">
-            Start Quiz!
-        </button>
+        <div class="startbuttonContainer">
+            <!--The button to start the quiz-->
+            <button class="ansButton" id="StartButton" onclick="startQuiz()">
+                Start Quiz!
+            </button>
+        </div>
     </div>
 
 <!--Creating the quiz area in the middle of the page-->
-    <section id="QuizArea" style="display:">
+    <section id="QuizArea" class="hidden">
         <!--Top left current score display-->
         <div id="currentScoreArea">
             <h3>
@@ -74,36 +77,20 @@
 
          <!--Questions and Answers Display-->
         <div id="QuestionAnswerArea">
-            <h3 id="theQuestion">
-                Question Here
-            </h3>
-            <div id="answerArea">
-                <ui>
-                    <li id="answer1"> Answer 1</li>
-                    <li id="answer2"> Answer 2</li>
-                    <li id="answer3"> Answer 3</li>
-                    <li id="answer4"> Answer 4</li>
-                </ui>
+            <h3 id="theQuestion">Question Here</h3>
+            <div class="questionContainer">
+                <!-- We create the question dynamically from our javascript and then insert it here -->
+                One Question at a time
             </div>
-        </div>
-
-   <!--The button to submit your answer-->
-        <button id="SubButton" onclick="runAnswerCheck()">
-            Submit Answer!
-        </button>
 
             <!--Quiz notification Area-->
-        <div id="quizNotification">
-            <h3>
-                Good Luck!
-            </h3>
+            <div id="quizNotification"><h3>Good Luck!</h3>
         </div>
 
-     
     </section>
 
     <!--This is where the leaderboard is-->
-    <section id="LeaderboardArea" class="hide">
+    <section id="LeaderboardArea" class="hidden">
         <div>
             <h2>
                 Leaderboards

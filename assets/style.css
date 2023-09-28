@@ -1,30 +1,120 @@
 header {
-    background-color: #204e4e;
-    color: rgb(18, 245, 245);
-    padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-h1 {
-    color:aquamarine;
-    font-weight: bold;
-    font-style:italic;
+  background-color: #204e4e;
+  color: rgb(18, 245, 245);
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
 }
 
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 35px;
-    font-size: large;
-  }
+body {
+  font-family: montserrat;
+}
 
-  nav a {
+h1 {
+  color: aquamarine;
+  font-weight: bold;
+  font-style: italic;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+  font-size: large;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.hide {
+  display: none;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: 300ms ease-in-out;
+}
+
+.questionContainer {
+  padding-bottom: 15px;
+}
+
+.questionToShow {
+  padding-top: 10px;
+}
+
+.answersContainer {
+  padding-top: 10px;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto auto;
+}
+
+.ansElement {
+  width: 100%;
+  display: flex;
+  margin: 5px auto 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.ansButton {
+  width: 85%;
+  font-weight: 700;
+  border: 0;
+  background: black;
+  color: white;
+  border-radius: 8px;
+  padding: 5px 0;
+  transition: 150ms ease-in-out;
+}
+
+.ansButton.correct {
+  background: green;
+}
+
+.incorrect {
+  animation: shakeAndFadeBackToBlack 750ms;
+}
+
+#timeLeft {
+  color: white;
+  padding: 15px;
+  background: black;
+  border-radius: 8px;
+  max-width: fit-content;
+  transition: 150ms ease-in-out;
+}
+
+@keyframes shakeAndFadeBackToBlack {
+  0% {
     color: white;
-    text-decoration: none;
+    background: red;
+    transform: translate(-5px);
   }
+  25% {
+    transform: translate(0px);
+  }
+  50% {
+    transform: translate(5px);
+  }
+  75% {
+    background: red;
+    transform: translate(0px);
+  }
+  100% {
+    background: black;
+    transform: translate(0);
+  }
+}
 
-  .hide{
-    display: none;
-  }
+.ansButton:hover {
+  color: black;
+  background: white;
+  box-shadow: -2px 2px 4px #636363;
+}
