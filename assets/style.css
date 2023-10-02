@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 header {
   background-color: #204e4e;
   color: rgb(18, 245, 245);
@@ -38,6 +40,7 @@ nav a {
   opacity: 0;
   pointer-events: none;
   transition: 300ms ease-in-out;
+  height: 0;
 }
 
 .questionContainer {
@@ -53,6 +56,7 @@ nav a {
   display: grid;
   grid-template-rows: auto auto;
   grid-template-columns: auto auto;
+  gap: 15px;
 }
 
 .ansElement {
@@ -70,8 +74,9 @@ nav a {
   background: black;
   color: white;
   border-radius: 8px;
-  padding: 5px 0;
+  padding: 10px 15px !important;
   transition: 150ms ease-in-out;
+  cursor: pointer;
 }
 
 .ansButton.correct {
@@ -117,4 +122,61 @@ nav a {
   color: black;
   background: white;
   box-shadow: -2px 2px 4px #636363;
+}
+
+#PreStartArea {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  margin: 25px auto;
+  transition: 300ms ease-in-out;
+}
+
+.startbuttonContainer {
+  width: 100%;
+}
+
+.ansButton {
+  width: 100%;
+  font-weight: 700;
+  border: 0;
+  background: black;
+  color: white;
+  border-radius: 8px;
+  padding: 5px 0;
+  transition: 150ms ease-in-out;
+}
+
+.quizActive #PreStartArea {
+  margin: 0 auto;
+}
+
+.quizActive #PreStartArea ul {
+  min-width: 305px;
+}
+
+#QuizArea {
+  width: 85%;
+  margin: 0 auto;
+  border: 5px solid black;
+  padding: 0 25px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 11px #0dadad;
+}
+
+.gameStats {
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-gap: 25px;
+}
+
+.gameStats div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  grid-gap: 14px;
 }

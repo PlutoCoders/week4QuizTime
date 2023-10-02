@@ -1,5 +1,3 @@
-// Dummy Comment
-
 // Setting up my variables for dry code
 let currentQuestionIndex = 0;
 let currentScorePoints = 0;
@@ -74,7 +72,12 @@ var questionsArr = [
   },
 ];
 
-function createQuestion(whichQuestionToShow) {
+// opens up the leaderboard
+function openLeaderboard() {
+  console.log(`The Game is Over! Your Score is: `, currentScore.innerHTML);
+}
+
+function updateAndRefreshQuestion(questionToShow) {
   if (currentQuestionIndex + 1 <= questionsArr.length) {
     // Lets empty out any existing questions
     questionContainer.innerHTML = ``;
@@ -84,14 +87,14 @@ function createQuestion(whichQuestionToShow) {
     newQuestionToShow.classList.add(`questionToShow`);
 
     // Insert Question
-    newQuestionToShow.innerHTML = `Question ${whichQuestionToShow.id}: ${whichQuestionToShow.questionText}`;
+    newQuestionToShow.innerHTML = `Question ${questionToShow.id}: ${questionToShow.questionText}`;
 
     // Insert Answers
     let answers = document.createElement(`div`);
     answers.classList.add(`answersContainer`);
 
     // For Each will loop over an array and run a function for each item.
-    whichQuestionToShow.questionAnswers.forEach((ans, ansIndex) => {
+    questionToShow.questionAnswers.forEach((ans, ansIndex) => {
       let ansID = ansIndex + 1;
       let ansElement = document.createElement(`div`);
       ansElement.classList.add(`ansElement`);
@@ -101,7 +104,7 @@ function createQuestion(whichQuestionToShow) {
       ansButton.classList.add(`ansButton`);
       ansButton.innerHTML = ans;
       ansButton.addEventListener(`click`, (ansButtonClickEvent) => {
-        runAnswerCheck(whichQuestionToShow, ansButtonClickEvent);
+        runAnswerCheck(questionToShow, ansButtonClickEvent);
       });
 
       ansElement.append(ansButton);
@@ -120,7 +123,7 @@ function createQuestion(whichQuestionToShow) {
     // We need to get the final score of the user at the end of the game
     // We need a form the user can fill out to store their high score
     // We need a leaderboard to show the highscores that we have stored
-    console.log(`No more questions, show leaderboard`);
+    openLeaderboard();
   }
 }
 
@@ -137,7 +140,10 @@ function runAnswerCheck(question, event) {
   // No matter if the user gets it wrong or right, the question should go to the next one
   if (answerTheUserClicked == question.rightAnswer) {
     buttonTheUserClicked.classList.add(`correct`);
-  } else {
+
+    // Add Score for Right Answer
+    currentScore.innerHTML = parseInt(currentScore.innerHTML) + 10;
+  } else { // Wrong Answer
     buttonTheUserClicked.classList.add(`incorrect`);
     timeLeft.classList.toggle(`incorrect`);
 
@@ -147,19 +153,35 @@ function runAnswerCheck(question, event) {
 
   setTimeout(() => {
     // Go to the next question
-    createQuestion(questionsArr[currentQuestionIndex]);
+    updateAndRefreshQuestion(questionsArr[currentQuestionIndex]);
   }, 1000);
 }
 
-// opens up the leaderboard
-// Hide the Quiz (if open)
-// Hide the Rules/Start (if open)
-// Make Leaderboard Display visible
-// Make "Back" button visible
-function openLeaderboard() {
-  preStartArea.classList.add('hide');
-  quizArea.classList.add('hide');
-  leaderboardArea.classList.remove('hide');
+// Main function that starts the quiz
+function startQuiz() {
+
+  // Show / Hide Elements
+  document.body.classList.toggle(`quizActive`);
+  quizArea.classList.toggle(`hidden`);
+  // leaderboardArea.classList.toggle(`hidden`);
+  startbuttonContainer.classList.toggle(`hidden`);
+
+  // Populate Variables into Screen
+  currentScore.innerHTML = currentScorePoints;
+  timeLeft.innerHTML = timeLeftSeconds;
+
+  updateAndRefreshQuestion(questionsArr[currentQuestionIndex]);
+
+  // Start the timer
+  setInterval(() => {
+    timeLeft.innerHTML = timeLeft.innerHTML - 1;
+
+    // Game Over Screen
+    if (timeLeft.innerHTML == 0) {
+      openLeaderboard();
+      return;
+    }
+  }, 999);
 }
 
 // Opens up the prestartarea with the rules and the start button
@@ -172,36 +194,9 @@ function openMain() {
   preStartArea.hidden = false;
 }
 
-// Unhides the quiz display
-function startQuiz() {
+// WHEN I click the start button
 
-  // Show / Hide Elements
-  quizArea.classList.toggle(`hidden`);
-  // leaderboardArea.classList.toggle(`hidden`);
-  startbuttonContainer.classList.toggle(`hidden`);
-
-  // Populate Variables into Screen
-  currentScore.innerHTML = currentScorePoints;
-  timeLeft.innerHTML = timeLeftSeconds;
-
-  createQuestion(questionsArr[currentQuestionIndex]);
-
-  // Start the timer
-  setInterval(() => {
-    timeLeft.innerHTML = timeLeft.innerHTML - 1;
-
-    // Game Over Screen
-    if (timeLeft.innerHTML == 0) {
-      console.log(`Hey Game Over`);
-      alert(`Hey Game Over`);
-      return;
-    }
-  }, 999);
-}
-
-//WHEN I click the start button
-
-//THEN a timer starts and I am presented with a question
+// THEN a timer starts and I am presented with a question
 
 // WHEN I answer a question
 
