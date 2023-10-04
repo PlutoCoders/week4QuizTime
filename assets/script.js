@@ -2,14 +2,17 @@
 let currentQuestionIndex = 0;
 let currentScorePoints = 0;
 let timeLeftSeconds = 100;
+let timeForGameOver = 0;
+let gameOverDelay = 5500;
 
 // Define
-let getDom = (selector) => document.querySelector(selector);
+const getDom = (selector) => document.querySelector(selector);
 
 // Call
 const timeLeft = getDom(`#timeLeft`);
 const currentScore = getDom(`#currentScore`);
 const questionContainer = getDom(`.questionContainer`);
+const questionCount = getDom(`#questionCount`);
 
 // Button Variables
 var startButton = document.querySelector("#StartButton");
@@ -24,7 +27,7 @@ var leaderboardArea = document.querySelector("#LeaderboardArea");
 const startbuttonContainer = document.querySelector(`.startbuttonContainer`);
 
 //Questions and Answers objects (copied and pasted)
-var questionsArr = [
+var questionsArray = [
   {
     id: 1,
     questionText:
@@ -73,14 +76,24 @@ var questionsArr = [
 ];
 
 // opens up the leaderboard
-function openLeaderboard() {
-  console.log(`The Game is Over! Your Score is: `, currentScore.innerHTML);
-}
+ const openLeaderboard = () => {
+  
+  // Show / Hide Elements
+  leaderboardArea.classList.toggle(`hidden`);
+  document.body.classList.toggle(`quizActive`);
+  quizArea.classList.toggle(`hidden`);
+  preStartArea.classList.toggle(`hidden`);
+  // startbuttonContainer.classList.toggle(`hidden`);
 
-function updateAndRefreshQuestion(questionToShow) {
-  if (currentQuestionIndex + 1 <= questionsArr.length) {
+  console.log(`The Game is Over! Your Score is: `, currentScore.innerHTML);
+
+};
+
+const updateAndRefreshQuestion = (questionToShow) => {
+  if (currentQuestionIndex + 1 <= questionsArray.length) {
     // Lets empty out any existing questions
     questionContainer.innerHTML = ``;
+    questionCount.innerHTML = questionsArray.length - currentQuestionIndex;
 
     // Create Question Element
     let newQuestionToShow = document.createElement(`div`);
@@ -119,11 +132,10 @@ function updateAndRefreshQuestion(questionToShow) {
     
     currentQuestionIndex = currentQuestionIndex + 1;
   } else {
-    // Leaderboard screen will go here
-    // We need to get the final score of the user at the end of the game
-    // We need a form the user can fill out to store their high score
-    // We need a leaderboard to show the highscores that we have stored
-    openLeaderboard();
+    // This is what happens when we run out of questions (open Leaderboard)
+    setTimeout(() => {
+      openLeaderboard();
+    }, gameOverDelay);
   }
 }
 
@@ -132,7 +144,7 @@ function updateAndRefreshQuestion(questionToShow) {
 // Remove 10 seconds if wrong
 // If final answer is correct, hide everything except for leaderboard
 // unhide the leaderboard score input
-function runAnswerCheck(question, event) {
+const runAnswerCheck = (question, event) => {
   let buttonTheUserClicked = event.target;
   let answerTheUserClicked = buttonTheUserClicked.innerHTML;
 
@@ -153,7 +165,7 @@ function runAnswerCheck(question, event) {
 
   setTimeout(() => {
     // Go to the next question
-    updateAndRefreshQuestion(questionsArr[currentQuestionIndex]);
+    updateAndRefreshQuestion(questionsArray[currentQuestionIndex]);
   }, 1000);
 }
 
@@ -163,22 +175,22 @@ function startQuiz() {
   // Show / Hide Elements
   document.body.classList.toggle(`quizActive`);
   quizArea.classList.toggle(`hidden`);
-  // leaderboardArea.classList.toggle(`hidden`);
   startbuttonContainer.classList.toggle(`hidden`);
 
   // Populate Variables into Screen
   currentScore.innerHTML = currentScorePoints;
   timeLeft.innerHTML = timeLeftSeconds;
 
-  updateAndRefreshQuestion(questionsArr[currentQuestionIndex]);
+  updateAndRefreshQuestion(questionsArray[currentQuestionIndex]);
 
   // Start the timer
-  setInterval(() => {
+  let quizTimer = setInterval(() => {
     timeLeft.innerHTML = timeLeft.innerHTML - 1;
 
     // Game Over Screen
-    if (timeLeft.innerHTML == 0) {
+    if (timeLeft.innerHTML <= timeForGameOver) {
       openLeaderboard();
+      clearInterval(quizTimer);
       return;
     }
   }, 999);
