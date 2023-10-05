@@ -3,7 +3,8 @@ let currentQuestionIndex = 0;
 let currentScorePoints = 0;
 let timeLeftSeconds = 100;
 let timeForGameOver = 0;
-let gameOverDelay = 3500;
+let gameOverDelay = 1500;
+let quizTimer;
 
 // Define
 const getDom = (selector) => document.querySelector(selector);
@@ -13,6 +14,7 @@ const timeLeft = getDom(`#timeLeft`);
 const currentScore = getDom(`#currentScore`);
 const questionContainer = getDom(`.questionContainer`);
 const questionCount = getDom(`#questionCount`);
+const statsContainer = getDom(`.statsContainer`);
 
 // Button Variables
 var startButton = document.querySelector("#StartButton");
@@ -77,13 +79,19 @@ var questionsArray = [
 
 // opens up the leaderboard
  const openLeaderboard = () => {
+  // to stop the timer
+  clearInterval(quizTimer);
   
   // Show / Hide Elements
   leaderboardArea.classList.toggle(`hidden`);
   document.body.classList.toggle(`quizActive`);
-  quizArea.classList.toggle(`hidden`);
+  let gameStats = getDom(`#gameStats`);
+  if (!quizArea.classList.contains(`hidden`)) {
+    quizArea.classList.add(`hidden`);
+  };
   preStartArea.classList.toggle(`hidden`);
-  // startbuttonContainer.classList.toggle(`hidden`);
+  startbuttonContainer.classList.toggle(`hidden`);
+  statsContainer.append(gameStats);
 
   console.log(`The Game is Over! Your Score is: `, currentScore.innerHTML);
 
@@ -198,13 +206,12 @@ function startQuiz() {
   updateAndRefreshQuestion(questionsArray[currentQuestionIndex]);
 
   // Start the timer
-  let quizTimer = setInterval(() => {
+  quizTimer = setInterval(() => {
     timeLeft.innerHTML = timeLeft.innerHTML - 1;
 
     // Game Over Screen
     if (timeLeft.innerHTML <= timeForGameOver) {
       openLeaderboard();
-      clearInterval(quizTimer);
       return;
     }
   }, 999);
@@ -215,10 +222,9 @@ function startQuiz() {
 // hide the back button
 // hide the quiz area
 // unhide the rules start button
-function openMain() {
-  leaderboardArea.hidden = true;
-  preStartArea.hidden = false;
-}
+function restart() {
+  window.location.reload();
+};
 
 // WHEN I click the start button
 

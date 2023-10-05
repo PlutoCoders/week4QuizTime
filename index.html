@@ -94,11 +94,14 @@
 
     <!--This is where the leaderboard is-->
     <section id="LeaderboardArea" class="hidden">
-        <div>
+        <div class="leaderboardContainer">
             <h2>
                 Leaderboards
             </h2>
-            <div>
+            <div class="statsContainer">
+                <!-- We will dynamically fill the stats with JS -->
+            </div>
+            <div class="ranking">
                 <ul>
                     <li id="firstPlace">
                         1st Place:
@@ -112,7 +115,7 @@
                 </ul>
             </div>
         </div>
-        <button id="BackButton" onclick="openMain()">
+        <button class="ansButton" id="BackButton" onclick="restart()">
             Back to Start Page
         </button>
     </section>

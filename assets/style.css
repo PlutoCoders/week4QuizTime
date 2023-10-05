@@ -203,7 +203,23 @@ nav a {
   grid-gap: 14px;
 }
 
+.statsContainer .gameStats {
+  grid-gap: 5px;
+  flex-direction: column;
+}
+
 .disabled {
   opacity: 0.65;
   pointer-events: none;
+}
+
+#LeaderboardArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#BackButton {
+  width: 50%;
 }
