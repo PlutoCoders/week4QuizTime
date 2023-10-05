@@ -79,12 +79,11 @@ nav a {
   cursor: pointer;
 }
 
-.ansButton.correct {
-  background: green;
-}
-
 .incorrect {
   animation: shakeAndFadeBackToBlack 750ms;
+}
+.correct {
+  animation: jumpAndFadeToBlack 750ms;
 }
 
 #timeLeft {
@@ -111,6 +110,29 @@ nav a {
   75% {
     background: red;
     transform: translate(0px);
+  }
+  100% {
+    background: black;
+    transform: translate(0);
+  }
+}
+
+/* Adding effect styling for correct Answer */
+@keyframes jumpAndFadeToBlack {
+  0% {
+    color: white;
+    background: green;
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(0, -5px);
+  }
+  50% {
+    transform: translate(0, -10px);
+  }
+  75% {
+    background: green;
+    transform: translate(0, -5px);
   }
   100% {
     background: black;
@@ -179,4 +201,9 @@ nav a {
   align-items: center;
   justify-content: space-between;
   grid-gap: 14px;
+}
+
+.disabled {
+  opacity: 0.65;
+  pointer-events: none;
 }

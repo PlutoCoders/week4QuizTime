@@ -3,7 +3,7 @@ let currentQuestionIndex = 0;
 let currentScorePoints = 0;
 let timeLeftSeconds = 100;
 let timeForGameOver = 0;
-let gameOverDelay = 5500;
+let gameOverDelay = 3500;
 
 // Define
 const getDom = (selector) => document.querySelector(selector);
@@ -146,12 +146,19 @@ const updateAndRefreshQuestion = (questionToShow) => {
 // unhide the leaderboard score input
 const runAnswerCheck = (question, event) => {
   let buttonTheUserClicked = event.target;
+  let buttonParent = buttonTheUserClicked.parentElement.parentElement;
+  Array.from(buttonParent.children).forEach((button, buttonIndex) => {
+    button.firstChild.disabled = true;
+    button.firstChild.classList.toggle(`disabled`);
+  })
+  
   let answerTheUserClicked = buttonTheUserClicked.innerHTML;
 
   // I want some kind of animation to fire when they click
   // No matter if the user gets it wrong or right, the question should go to the next one
   if (answerTheUserClicked == question.rightAnswer) {
     buttonTheUserClicked.classList.add(`correct`);
+    timeLeft.classList.toggle(`correct`);
 
     // Add Score for Right Answer
     currentScore.innerHTML = parseInt(currentScore.innerHTML) + 10;
@@ -164,6 +171,13 @@ const runAnswerCheck = (question, event) => {
   }
 
   setTimeout(() => {
+    // All of this logic you put in here will run after the delay that you specify
+    if (timeLeft.classList.contains(`incorrect`)) {
+      timeLeft.classList.remove(`incorrect`);
+    };
+    if (timeLeft.classList.contains(`correct`)) {
+      timeLeft.classList.remove(`correct`);
+    };
     // Go to the next question
     updateAndRefreshQuestion(questionsArray[currentQuestionIndex]);
   }, 1000);
