@@ -91,15 +91,25 @@ var questionsArray = [
     quizArea.classList.add(`hidden`);
   };
   preStartArea.classList.toggle(`hidden`);
+  let time = parseFloat(timeLeft.innerHTML);
   startbuttonContainer.classList.toggle(`hidden`);
-  statsContainer.append(gameStats);
-
-  scoreForm.addEventListener(`submit`, (formSubmitEvent) => {
-    formSubmitEvent.preventDefault();
-    let userNameField = scoreForm.querySelector(`input[name="userName"]`);
-    console.log(`scoreForm Submit`, userNameField.value);
-  })
-
+  
+  //Allow score form submit only if the user has played the game
+  if (time < 100) {
+    statsContainer.append(gameStats);
+  
+    scoreForm.addEventListener(`submit`, (formSubmitEvent) => {
+      formSubmitEvent.preventDefault();
+      let userNameField = scoreForm.querySelector(`input[name="userName"]`);
+      // grabbing the game/score stats
+      let userName = userNameField.value;
+      let score = parseFloat(currentScore.innerHTML);
+      let date = new Date();
+      console.log(`scoreForm Submit`, {userName, score, time, date});
+    })
+  } else {
+    scoreForm.classList.toggle("hidden");
+  }
 };
 
 const updateAndRefreshQuestion = (questionToShow) => {
