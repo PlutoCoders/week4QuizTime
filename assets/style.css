@@ -224,3 +224,10 @@ nav a {
 #BackButton {
   width: 50%;
 }
+
+.ranking {
+  padding: 0 0 15px 0;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 10px;
+}

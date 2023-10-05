@@ -6,6 +6,9 @@ let timeForGameOver = 0;
 let gameOverDelay = 1500;
 let quizTimer;
 
+// If we have highScores saved, grab it, if not, empty array!
+let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
 // Define
 const getDom = (selector) => document.querySelector(selector);
 
@@ -16,6 +19,7 @@ const questionContainer = getDom(`.questionContainer`);
 const questionCount = getDom(`#questionCount`);
 const statsContainer = getDom(`.statsContainer`);
 const scoreForm = getDom(`.scoreForm`);
+const ranking = getDom(`.ranking`);
 
 // Button Variables
 var startButton = document.querySelector("#StartButton");
@@ -78,6 +82,22 @@ var questionsArray = [
   },
 ];
 
+const refreshHighScores = () => {
+  if (highScores.length > 0) {
+    ranking.innerHTML = "";
+    highScores = highScores.sort((score1, score2) => score2.score - score1.score);
+    highScores.slice(0, 10).forEach((score, scoreIndex) => {
+      let scoreElement = document.createElement("div");
+      scoreElement.classList.add("scoreElement");
+      scoreElement.id = `score-${score.id}`;
+      scoreElement.innerHTML = `${scoreIndex + 1}. ${score.userName} - ${score.score} Points - ${score.time} seconds left`;
+      ranking.append(scoreElement);
+    });
+  }
+};
+
+refreshHighScores();
+
 // opens up the leaderboard
  const openLeaderboard = () => {
   // to stop the timer
@@ -105,7 +125,13 @@ var questionsArray = [
       let userName = userNameField.value;
       let score = parseFloat(currentScore.innerHTML);
       let date = new Date();
-      console.log(`scoreForm Submit`, {userName, score, time, date});
+      // Adding score info to an array
+      let scoreToSave = {id: highScores.length + 1, userName, score, date, time};
+      highScores.push(scoreToSave);
+      // Saving to dataBase
+      localStorage.setItem(`highScores`, JSON.stringify(highScores));
+      scoreForm.classList.toggle("hidden");
+      refreshHighScores();
     })
   } else {
     scoreForm.classList.toggle("hidden");
