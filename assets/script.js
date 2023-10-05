@@ -15,6 +15,7 @@ const currentScore = getDom(`#currentScore`);
 const questionContainer = getDom(`.questionContainer`);
 const questionCount = getDom(`#questionCount`);
 const statsContainer = getDom(`.statsContainer`);
+const scoreForm = getDom(`.scoreForm`);
 
 // Button Variables
 var startButton = document.querySelector("#StartButton");
@@ -93,7 +94,11 @@ var questionsArray = [
   startbuttonContainer.classList.toggle(`hidden`);
   statsContainer.append(gameStats);
 
-  console.log(`The Game is Over! Your Score is: `, currentScore.innerHTML);
+  scoreForm.addEventListener(`submit`, (formSubmitEvent) => {
+    formSubmitEvent.preventDefault();
+    let userNameField = scoreForm.querySelector(`input[name="userName"]`);
+    console.log(`scoreForm Submit`, userNameField.value);
+  })
 
 };
 
